@@ -1,9 +1,19 @@
 import React from 'react'
 import { Link, Route } from 'react-router-dom'
+import ListBooks from './ListBooks'
 import * as BooksAPI from './BooksAPI'
 import './App.css'
 
 class BooksApp extends React.Component {
+  state = {
+    books: []
+  }
+  componentDidMount() {
+    BooksAPI.getAll().then((books) => {
+      this.setState({ books })
+      console.log(this.state.books);
+    })
+  }
   render() {
     return (
       <div className="app">
@@ -28,6 +38,9 @@ class BooksApp extends React.Component {
             <div className="list-books-title">
               <h1>MyReads</h1>
             </div>
+            <ListBooks
+              books={this.state.books}
+            />
             <div className="list-books-content">
               <div>
                 <div className="bookshelf">
