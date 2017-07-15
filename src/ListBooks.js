@@ -1,21 +1,7 @@
 import React, { Component } from 'react'
 import Bookshelf from './Bookshelf'
+import SHELVES from './Shelves'
 import PropTypes from 'prop-types'
-
-const SHELVES = [
-  {
-    'title': 'Currently Reading',
-    'filter': 'currentlyReading',
-  },
-  {
-    'title': 'Want to Read',
-    'filter': 'wantToRead',
-  },
-  {
-    'title': 'Read',
-    'filter': 'read',
-  },
-]
 
 class ListBooks extends Component {
   static propTypes = {
@@ -28,10 +14,11 @@ class ListBooks extends Component {
         <div>
           {SHELVES.map((shelf) => (
             <Bookshelf
-              key={shelf.title}
+              key={shelf.value}
               title={shelf.title}
+              optionsState={shelf.value}
               books={this.props.books.filter((book) => (
-                book.shelf === shelf.filter
+                book.shelf === shelf.value
               ))}
             />
           ))}

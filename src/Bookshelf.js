@@ -1,9 +1,11 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import BookshelfChanger from './BookshelfChanger'
 
 class Bookshelf extends Component {
   static propTypes = {
     title: PropTypes.string.isRequired,
+    optionsState: PropTypes.string.isRequired,
     books: PropTypes.array.isRequired,
   }
 
@@ -18,6 +20,9 @@ class Bookshelf extends Component {
                   <div className="book">
                     <div className="book-top">
                       <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.thumbnail})` }}></div>
+                      <BookshelfChanger
+                        optionsState={this.props.optionsState}
+                      />
                     </div>
                     <div className="book-title">{book.title}</div>
                     <div className="book-authors">{book.authors}</div>
