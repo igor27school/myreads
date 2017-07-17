@@ -6,6 +6,7 @@ import PropTypes from 'prop-types'
 class ListBooks extends Component {
   static propTypes = {
     books: PropTypes.array.isRequired,
+    onChangeBookState: PropTypes.func.isRequired,
   }
 
   render() {
@@ -20,6 +21,7 @@ class ListBooks extends Component {
               books={this.props.books.filter((book) => (
                 book.shelf === shelf.value
               ))}
+              onChangeBookState={this.props.onChangeBookState}
             />
           ))}
         </div>

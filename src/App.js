@@ -11,7 +11,18 @@ class BooksApp extends React.Component {
   componentDidMount() {
     BooksAPI.getAll().then((books) => {
       this.setState({ books })
-      console.log(this.state.books);
+    })
+  }
+  moveBook = (bookId, newShelf) => {
+    BooksAPI.update({id: bookId}, newShelf).then(() => {
+      // TODO: Get the book directly from the books array instead
+      BooksAPI.get(bookId).then((updatedBook) => {
+        this.setState((prevState) => ({
+          books: prevState.books.filter((book) => book.id !== bookId).concat(
+            [updatedBook]
+          )
+        }))
+      })
     })
   }
   render() {
@@ -40,6 +51,7 @@ class BooksApp extends React.Component {
             </div>
             <ListBooks
               books={this.state.books}
+              onChangeBookState={this.moveBook}
             />
             <div className="list-books-content">
               <div>
