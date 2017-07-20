@@ -29,7 +29,7 @@ class SearchBooks extends Component {
 
   dedupBooks = (books) => {
     const setBookIds = new Set()
-    var uniqueBooks = []
+    const uniqueBooks = []
     books.forEach((book) => {
       if (!setBookIds.has(book.id)) {
         uniqueBooks.push(book)
