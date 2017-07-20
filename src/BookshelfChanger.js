@@ -4,8 +4,7 @@ import SHELVES from './Shelves'
 
 class BookshelfChanger extends Component {
   static propTypes = {
-    bookId: PropTypes.string.isRequired,
-    optionsState: PropTypes.string.isRequired,
+    book: PropTypes.object.isRequired,
     onChangeBookState: PropTypes.func.isRequired,
   }
 
@@ -13,12 +12,11 @@ class BookshelfChanger extends Component {
     return (
       <div className="book-shelf-changer">
         <select
-          // TODO: find a better way to access bookId
-          id={this.props.bookId}
-          defaultValue={this.props.optionsState}
+          data-book={JSON.stringify(this.props.book)}
+          defaultValue={this.props.book.shelf}
           onChange={(event) => (
             this.props.onChangeBookState(
-              event.target.id,
+              event.target.dataset.book,
               event.target.value
           ))}
         >
