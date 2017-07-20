@@ -19,12 +19,36 @@ class SearchBooks extends Component {
     if (query.trim().length > 0) {
       BooksAPI.search(query.trim(), 20).then((foundBooks) => {
         this.setState({ foundBooks: foundBooks && Array.isArray(foundBooks) ?
-          foundBooks : [] })
+          this.assignShelf(this.dedupBooks(foundBooks)) : [] })
       })
     } else {
       this.setState({ foundBooks: [] })
     }
     this.setState({ query })
+  }
+
+  dedupBooks = (books) => {
+    const setBookIds = new Set()
+    var uniqueBooks = []
+    books.forEach((book) => {
+      if (!setBookIds.has(book.id)) {
+        uniqueBooks.push(book)
+        setBookIds.add(book.id)
+      }
+    })
+    return uniqueBooks
+  }
+
+  assignShelf = (foundBooks) => {
+    const setBookIds = new Set(this.props.books.map((book) => book.id))
+    return foundBooks.map((foundBook) => {
+      if (setBookIds.has(foundBook.id)) {
+        return this.props.books.find((book) => book.id === foundBook.id)
+      } else {
+        foundBook.shelf = "none"
+        return foundBook
+      }
+    })
   }
 
   render() {
