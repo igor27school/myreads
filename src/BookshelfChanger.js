@@ -12,11 +12,10 @@ class BookshelfChanger extends Component {
     return (
       <div className="book-shelf-changer">
         <select
-          data-book={JSON.stringify(this.props.book)}
           defaultValue={this.props.book.shelf}
           onChange={(event) => (
             this.props.onChangeBookState(
-              event.target.dataset.book,
+              this.props.book,
               event.target.value
           ))}
         >

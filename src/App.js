@@ -18,7 +18,6 @@ class BooksApp extends React.Component {
   }
 
   moveBook = (inputBook, newShelf) => {
-    inputBook = JSON.parse(inputBook);
     // Updating the book's shelf client-side.
     inputBook.shelf = newShelf;
     this.setState((prevState) => ({
