@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import SHELVES from './Shelves'
+import SHELVES from '../utils/Shelves'
 
 class BookshelfChanger extends Component {
   static propTypes = {
