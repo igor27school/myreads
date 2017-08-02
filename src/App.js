@@ -14,7 +14,7 @@ class BooksApp extends React.Component {
   componentDidMount() {
     BooksAPI.getAll().then((books) => {
       this.setState({ books })
-    }).catch((error) = {
+    }).catch((error) => {
       console.log("An error occurred while retrieving books: " + error)
     })
   }
