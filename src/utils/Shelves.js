@@ -1,3 +1,6 @@
+/**
+* @description An array of existing shelves used by MyReads App
+*/
 const SHELVES = [
   {
     'title': 'Currently Reading',

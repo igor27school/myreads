@@ -2,6 +2,9 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import SHELVES from '../utils/Shelves'
 
+/**
+* @description Represents the select menu that is used to change book's shelf
+*/
 class BookshelfChanger extends Component {
   static propTypes = {
     book: PropTypes.object.isRequired,

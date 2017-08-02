@@ -2,6 +2,9 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import BookshelfChanger from './BookshelfChanger'
 
+/**
+* @description Encapsulates the concept of a shelf for books
+*/
 class Bookshelf extends Component {
   static propTypes = {
     title: PropTypes.string.isRequired,

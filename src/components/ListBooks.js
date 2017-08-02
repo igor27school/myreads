@@ -3,6 +3,9 @@ import Bookshelf from './Bookshelf'
 import SHELVES from '../utils/Shelves'
 import PropTypes from 'prop-types'
 
+/**
+* @description Manages the Display Mode of MyReads App
+*/
 class ListBooks extends Component {
   static propTypes = {
     books: PropTypes.array.isRequired,

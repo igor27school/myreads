@@ -2,8 +2,12 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import Bookshelf from './Bookshelf'
 import * as BooksAPI from '../utils/BooksAPI'
+import * as Utils from '../utils/Utils'
 import PropTypes from 'prop-types'
 
+/**
+* @description Manages the Search Mode of MyReads App
+*/
 class SearchBooks extends Component {
   static propTypes = {
     books: PropTypes.array.isRequired,
@@ -15,11 +19,18 @@ class SearchBooks extends Component {
     foundBooks: []
   }
 
+  /**
+  * @description Updates the query results based on input. Calls backend
+  * @param {string} query - User's search query
+  */
   updateQuery = (query) => {
     if (query.trim().length > 0) {
       BooksAPI.search(query.trim(), 20).then((foundBooks) => {
         this.setState({ foundBooks: foundBooks && Array.isArray(foundBooks) ?
-          this.assignShelf(this.dedupBooks(foundBooks)) : [] })
+          this.assignShelf(Utils.dedupBooks(foundBooks)) : [] })
+      }).catch((error) => {
+        console.log("An error occurred while searching for books: " + error)
+        this.setState({ foundBooks: [] })
       })
     } else {
       this.setState({ foundBooks: [] })
@@ -27,18 +38,11 @@ class SearchBooks extends Component {
     this.setState({ query })
   }
 
-  dedupBooks = (books) => {
-    const setBookIds = new Set()
-    const uniqueBooks = []
-    books.forEach((book) => {
-      if (!setBookIds.has(book.id)) {
-        uniqueBooks.push(book)
-        setBookIds.add(book.id)
-      }
-    })
-    return uniqueBooks
-  }
-
+  /**
+  * @description Figures out an appropriate "shelf" for every book in the list
+  * @param {array} foundBooks - An array of books
+  * @returns {array} An array of books with correctly assigned shelf
+  */
   assignShelf = (foundBooks) => {
     const setBookIds = new Set(this.props.books.map((book) => book.id))
     return foundBooks.map((foundBook) => {
